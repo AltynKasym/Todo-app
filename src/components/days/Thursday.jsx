@@ -1,9 +1,9 @@
-import React from "react";
+import "../style.scss";
 import { DailyTodo } from "../Components";
 
 function Thursday() {
   return (
-    <div>
+    <div className="body">
       Thursday
       <DailyTodo todoDay={"todo_4"} />
     </div>

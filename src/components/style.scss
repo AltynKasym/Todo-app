@@ -1,0 +1,67 @@
+.header {
+  padding: 100px 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  // justify-content: center;
+  background-color: rgba(14, 13, 13, 0.4);
+  // filter: blur(20%);
+  min-height: 100vh;
+
+  Button {
+    font-size: 1rem;
+    margin: 10px;
+    color: aliceblue;
+    border: 2px solid aliceblue;
+
+    &:hover {
+      border: 2px solid rgb(209, 57, 1);
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.body {
+  font-size: 1.5rem;
+  padding: 100px;
+}
+
+.daily-todo {
+  width: 100%;
+  &__input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    .input-todo {
+      width: 300px;
+    }
+    .todo-list {
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+    }
+  }
+
+  &__output {
+    &-item {
+      background-color: rgba(206, 204, 204, 0.4);
+      margin: 8px;
+      padding: 0 10px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .icons {
+        display: inline-flex;
+
+        .delete-button:hover {
+          color: red;
+        }
+      }
+    }
+  }
+}

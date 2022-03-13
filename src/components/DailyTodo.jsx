@@ -1,6 +1,8 @@
-import React from "react";
+import "./style.scss";
 import { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
+import CheckIcon from "@mui/icons-material/Check";
 
 function DailyTodo(props) {
   const [todo, setTodo] = useState("");
@@ -19,8 +21,9 @@ function DailyTodo(props) {
     setTodo(e.target.value);
   };
 
+  // Добавление задач
+
   function addTodo() {
-    // e.prevent.default;
     if (localStorage.getItem(props.todoDay) === null) {
       todoList = [];
     } else {
@@ -32,20 +35,23 @@ function DailyTodo(props) {
     setTodo("");
   }
 
-  const deleteToDo = (e) => {
-    // if (localStorage.getItem("todo") === null) {
-    //   todoList = [];
-    // } else {
+  // Удаление задач
 
+  const deleteToDo = (e) => {
     todoList.forEach((item, id) => {
-      if (e.target.innerText === item) {
+      if (e.target.parentNode.parentNode.innerText === item) {
         setTodoLocal(todoList.splice(id, 1));
-        console.log("Ok");
+        console.log(e.target.parentNode.parentNode.innerText);
       }
     });
-    // );
-    // }
     localStorage.setItem(props.todoDay, JSON.stringify(todoList));
+  };
+
+  // Задача выполнена
+
+  const doneToDo = (e) => {
+    e.target.parentNode.style.color = "red";
+    localStorage.setItem("style", JSON.stringify(todoList));
   };
 
   todoList = JSON.parse(localStorage.getItem(props.todoDay));
@@ -53,20 +59,23 @@ function DailyTodo(props) {
   const viewTodo = () => {
     if (localStorage.getItem(props.todoDay) === null) {
       todoList = [];
-    } else {
-      todoList.map((item) => {
-        return <li onClick={deleteToDo}>{item} </li>;
-      });
     }
+    // else {
+    //   todoList.map((item) => {
+    //     return <li onClick={deleteToDo}>{item} </li>;
+    //   });
+    // }
   };
+
+  // Переименовать запись
 
   const renameToDO = (e) => {
     return <>{document.createElement("input").append(e.target.textContent)}</>;
   };
 
   return (
-    <>
-      <div className="daily-todo">
+    <div className="daily-todo">
+      <div className="daily-todo__input">
         <TextField
           id="standard-basic"
           label="Enter Todo"
@@ -80,18 +89,36 @@ function DailyTodo(props) {
           Add Todo
         </Button>
       </div>
-      <ul className="todo-list">
+      <div className="daily-todo__output">
         Todo List
         {viewTodo()}
         {todoList.map((item, id) => {
           return (
-            <li onDoubleClick={deleteToDo} onClick={renameToDO} key={id}>
-              {item}{" "}
+            <li
+              onClick={renameToDO}
+              key={id}
+              className="daily-todo__output-item"
+            >
+              {item}
+              <div className="icons">
+                <ClearIcon
+                  className="delete-button"
+                  onClick={deleteToDo}
+                  style={{
+                    padding: "3px",
+                    cursor: "pointer",
+                  }}
+                />
+                <CheckIcon
+                  onClick={doneToDo}
+                  style={{ padding: "3px", cursor: "pointer" }}
+                />
+              </div>
             </li>
           );
         })}
-      </ul>
-    </>
+      </div>
+    </div>
   );
 }
 

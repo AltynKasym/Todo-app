@@ -1,10 +1,10 @@
-import React from "react";
+import "./style.scss";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 
 function header() {
   return (
-    <div>
+    <div className="header">
       {/* <Link to="/main">
         <button>Main</button>
       </Link> */}
