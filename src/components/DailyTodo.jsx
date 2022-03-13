@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { TextField, Button } from "@mui/material";
 
 function DailyTodo(props) {
   const [todo, setTodo] = useState("");
@@ -19,6 +20,7 @@ function DailyTodo(props) {
   };
 
   function addTodo() {
+    // e.prevent.default;
     if (localStorage.getItem(props.todoDay) === null) {
       todoList = [];
     } else {
@@ -58,26 +60,35 @@ function DailyTodo(props) {
     }
   };
 
+  const renameToDO = (e) => {
+    return <>{document.createElement("input").append(e.target.textContent)}</>;
+  };
+
   return (
     <>
-      <div className="daily-todo">Daily Todo</div>
-      <input
-        type="text"
-        className="input-todo"
-        onChange={getTodo}
-        value={todoItem}
-      />
-      <input
-        type="button"
-        className="send-button"
-        value="Добавить Todo"
-        onClick={() => addTodo()}
-      />
+      <div className="daily-todo">
+        <TextField
+          id="standard-basic"
+          label="Enter Todo"
+          variant="standard"
+          className="input-todo"
+          onChange={getTodo}
+          value={todoItem}
+        />
+
+        <Button variant="contained" onClick={() => addTodo()}>
+          Add Todo
+        </Button>
+      </div>
       <ul className="todo-list">
         Todo List
         {viewTodo()}
-        {todoList.map((item) => {
-          return <li onClick={deleteToDo}>{item} </li>;
+        {todoList.map((item, id) => {
+          return (
+            <li onDoubleClick={deleteToDo} onClick={renameToDO} key={id}>
+              {item}{" "}
+            </li>
+          );
         })}
       </ul>
     </>

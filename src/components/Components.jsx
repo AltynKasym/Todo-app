@@ -1,3 +1,4 @@
+export { default as Header } from "./Header";
 export { default as Main } from "./Main";
 export { default as DailyTodo } from "./DailyTodo";
 export { default as Monday } from "./days/Monday";
