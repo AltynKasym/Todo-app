@@ -1,10 +1,10 @@
-import React, { createElement } from "react";
+import React from "react";
 import { useState, useEffect } from "react";
 
-function DailyTodo() {
+function DailyTodo(props) {
   const [todo, setTodo] = useState("");
   const [todoLocal, setTodoLocal] = useState(
-    JSON.parse(localStorage.getItem("todo")) || []
+    JSON.parse(localStorage.getItem(props.todoDay)) || []
   );
 
   // useEffect(() => {
@@ -19,13 +19,13 @@ function DailyTodo() {
   };
 
   function addTodo() {
-    if (localStorage.getItem("todo") === null) {
+    if (localStorage.getItem(props.todoDay) === null) {
       todoList = [];
     } else {
-      todoList = JSON.parse(localStorage.getItem("todo"));
+      todoList = JSON.parse(localStorage.getItem(props.todoDay));
     }
     todoList.push(todo);
-    localStorage.setItem("todo", JSON.stringify(todoList));
+    localStorage.setItem(props.todoDay, JSON.stringify(todoList));
     setTodoLocal((todoLocal) => [...todoLocal, todo]);
     setTodo("");
   }
@@ -43,13 +43,13 @@ function DailyTodo() {
     });
     // );
     // }
-    localStorage.setItem("todo", JSON.stringify(todoList));
+    localStorage.setItem(props.todoDay, JSON.stringify(todoList));
   };
 
-  todoList = JSON.parse(localStorage.getItem("todo"));
+  todoList = JSON.parse(localStorage.getItem(props.todoDay));
 
   const viewTodo = () => {
-    if (localStorage.getItem("todo") === null) {
+    if (localStorage.getItem(props.todoDay) === null) {
       todoList = [];
     } else {
       todoList.map((item) => {

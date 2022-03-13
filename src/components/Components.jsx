@@ -1,2 +1,9 @@
 export { default as Main } from "./Main";
 export { default as DailyTodo } from "./DailyTodo";
+export { default as Monday } from "./days/Monday";
+export { default as Tuesday } from "./days/Tuesday";
+export { default as Wednesday } from "./days/Wednesday";
+export { default as Thursday } from "./days/Thursday";
+export { default as Friday } from "./days/Friday";
+export { default as Saturday } from "./days/Saturday";
+export { default as Sunday } from "./days/Sunday";
