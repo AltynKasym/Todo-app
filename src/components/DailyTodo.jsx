@@ -24,22 +24,26 @@ function DailyTodo(props) {
   // Добавление задач
 
   function addTodo() {
-    if (localStorage.getItem(props.todoDay) === null) {
-      todoList = [];
+    if (todo.trim() === "") {
+      alert("Введите данные");
     } else {
-      todoList = JSON.parse(localStorage.getItem(props.todoDay));
+      if (localStorage.getItem(props.todoDay) === null) {
+        todoList = [];
+      } else {
+        todoList = JSON.parse(localStorage.getItem(props.todoDay));
+      }
+      todoList.push(todo.trim());
+      localStorage.setItem(props.todoDay, JSON.stringify(todoList));
+      setTodoLocal((todoLocal) => [...todoLocal, todo]);
+      setTodo("");
     }
-    todoList.push(todo);
-    localStorage.setItem(props.todoDay, JSON.stringify(todoList));
-    setTodoLocal((todoLocal) => [...todoLocal, todo]);
-    setTodo("");
   }
 
   // Удаление задач
 
   const deleteToDo = (e) => {
     todoList.forEach((item, id) => {
-      if (e.target.parentNode.parentNode.innerText === item) {
+      if (e.target.parentNode.parentNode.innerText.trim() === item.trim()) {
         setTodoLocal(todoList.splice(id, 1));
         console.log(e.target.parentNode.parentNode.innerText);
       }
@@ -48,10 +52,35 @@ function DailyTodo(props) {
   };
 
   // Задача выполнена
+  todoList = JSON.parse(localStorage.getItem(props.todoDay));
 
   const doneToDo = (e) => {
-    e.target.parentNode.style.color = "red";
-    localStorage.setItem("style", JSON.stringify(todoList));
+    todoList.forEach((item, id) => {
+      if (e.target.parentNode.parentNode.innerText.trim() === item.trim()) {
+        if (item[0] === " ") {
+          let done = item.trim();
+          setTodoLocal(todoList.splice(id, 1, done));
+
+          console.log(done);
+        } else {
+          let done = " " + e.target.parentNode.parentNode.innerText;
+          // console.log(done);
+          setTodoLocal(todoList.splice(id, 1, done));
+
+          console.log(done);
+        }
+      }
+    });
+    localStorage.setItem(props.todoDay, JSON.stringify(todoList));
+
+    todoList.forEach((item) => {
+      if (item[0] === " ") {
+        console.log(e);
+        e.target.parentNode.parentNode.style.backgroundColor = `#44014C`;
+      } else {
+        e.target.parentNode.parentNode.style.backgroundColor = `none`;
+      }
+    });
   };
 
   todoList = JSON.parse(localStorage.getItem(props.todoDay));
@@ -59,17 +88,13 @@ function DailyTodo(props) {
   const viewTodo = () => {
     if (localStorage.getItem(props.todoDay) === null) {
       todoList = [];
+    } else {
     }
-    // else {
-    //   todoList.map((item) => {
-    //     return <li onClick={deleteToDo}>{item} </li>;
-    //   });
-    // }
   };
 
   // Переименовать запись
 
-  const renameToDO = (e) => {
+  const renameToDo = (e) => {
     return <>{document.createElement("input").append(e.target.textContent)}</>;
   };
 
@@ -95,7 +120,7 @@ function DailyTodo(props) {
         {todoList.map((item, id) => {
           return (
             <li
-              onClick={renameToDO}
+              onClick={renameToDo}
               key={id}
               className="daily-todo__output-item"
             >
