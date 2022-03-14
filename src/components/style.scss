@@ -47,12 +47,15 @@
 
   &__output {
     &-item {
+      max-width: 90%;
       background-color: rgba(206, 204, 204, 0.4);
       margin: 8px;
       padding: 0 10px;
       font-size: 1.2rem;
+      text-align: left;
       display: flex;
       align-items: center;
+
       justify-content: space-between;
 
       .icons {

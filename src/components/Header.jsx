@@ -2,14 +2,23 @@ import "./style.scss";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 
-function header() {
+function header({ percent1, percent5 }) {
+  console.log("Monday from Header " + percent1);
+  console.log("Friday from Header " + percent5);
   return (
     <div className="header">
       {/* <Link to="/main">
         <button>Main</button>
       </Link> */}
       <Link to="/Monday">
-        <Button variant="outlined">Monday</Button>
+        <Button
+          variant="outlined"
+          style={{
+            background: `linear-gradient(to right, darkgreen ${percent1}%, transparent 0%)`,
+          }}
+        >
+          Monday
+        </Button>
       </Link>
       <Link to="/Tuesday">
         <Button variant="outlined">Tuesday</Button>
@@ -21,7 +30,14 @@ function header() {
         <Button variant="outlined">Thursday</Button>
       </Link>
       <Link to="/Friday">
-        <Button variant="outlined">Friday</Button>
+        <Button
+          variant="outlined"
+          style={{
+            background: `linear-gradient(to right, darkgreen ${percent5}%, transparent 0%)`,
+          }}
+        >
+          Friday
+        </Button>
       </Link>
       <Link to="/Saturday">
         <Button variant="outlined">Saturday</Button>
