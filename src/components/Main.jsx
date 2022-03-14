@@ -4,6 +4,7 @@ import { TabPanel } from "@mui/lab";
 // import {  } from "@mui/material/tab";
 
 function Main() {
+  localStorage.setItem("todo_5", JSON.stringify([]));
   return (
     <div>
       Main

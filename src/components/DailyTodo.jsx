@@ -16,20 +16,24 @@ function DailyTodo(props) {
   const todoItem = todo;
   let todoList = [];
 
+  if (localStorage.getItem(props.todoDay) === null) {
+    localStorage.setItem(props.todoDay, JSON.stringify([]));
+  }
+
   const getTodo = (e) => {
     setTodo(e.target.value);
   };
-
+  console.log(localStorage.getItem("todo_5"));
   // Добавление задач
 
   function addTodo() {
-    todoList = JSON.parse(localStorage.getItem(props.todoDay));
     if (todo.trim() === "") {
       alert("Введите данные");
     } else {
       if (localStorage.getItem(props.todoDay) === null) {
         todoList = [];
       } else {
+        todoList = JSON.parse(localStorage.getItem(props.todoDay));
         todoList.indexOf(todo.trim()) >= 0
           ? alert("Такая запись существует")
           : todoList.push(todo.trim());
@@ -78,10 +82,10 @@ function DailyTodo(props) {
   // Посчитать выполненные задачи
 
   const viewTodo = () => {
-    todoList = JSON.parse(localStorage.getItem(props.todoDay));
     if (localStorage.getItem(props.todoDay) === null) {
       todoList = [];
     } else {
+      todoList = JSON.parse(localStorage.getItem(props.todoDay));
       todoList.forEach((item) => {
         if (item[0] === " ") {
           completed.push(item.trim()); // Задачи с пробелом - выполненные
@@ -123,82 +127,55 @@ function DailyTodo(props) {
   }
 
   return (
-    <div className="daily-todo">
-      <div className="daily-todo__input">
-        <TextField
-          id="standard-basic"
-          label="Enter Todo"
-          variant="standard"
-          className="input-todo"
-          onChange={getTodo}
-          value={todoItem}
-        />
-        {viewTodo()}
+    <>
+      {/* {createTodo()} */}
+      <div className="daily-todo">
+        <div className="daily-todo__input">
+          <TextField
+            id="standard-basic"
+            label="Enter Todo"
+            variant="standard"
+            className="input-todo"
+            onChange={getTodo}
+            value={todoItem}
+          />
+          {viewTodo()}
 
-        <Button
-          variant="contained"
-          onClick={() => addTodo()}
-          style={{
-            background: `rgba(14, 13, 13, 0.4)`,
-          }}
-        >
-          Add Todo
-        </Button>
-      </div>
-      <div className="daily-todo__output">
-        Todo List
-        {todoList.map((item, id) => {
-          return (
-            <>
-              {/*Поле для изменения задач*/}
-              {item.trim() === edit ? (
-                <div className="rename-todo">
-                  <input
-                    type="text"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    autofocus
-                  />{" "}
-                  <button onClick={() => saveTodo(id)}>Ok</button>
-                </div>
-              ) : (
-                <div></div>
-              )}
-              {/*Рендер задач по статусу выполнения*/}
-              {item[0] === " " ? (
-                <li
-                  key={item + id}
-                  className="daily-todo__output-item daily-todo__output-itemDone"
-                >
-                  {item}
-                  <div className="icons">
-                    <ModeIcon
-                      className="rename-button"
-                      onClick={renameToDo}
-                      style={{
-                        padding: "3px",
-                        cursor: "pointer",
-                      }}
-                    />
-                    <ClearIcon
-                      className="delete-button"
-                      onClick={deleteToDo}
-                      style={{
-                        padding: "3px",
-                        cursor: "pointer",
-                      }}
-                    />
-                    <CheckIcon
-                      className="check-button"
-                      onClick={doneToDo}
-                      style={{ padding: "3px", cursor: "pointer" }}
-                      value="1"
-                    />
+          <Button
+            variant="contained"
+            onClick={() => addTodo()}
+            style={{
+              background: `rgba(14, 13, 13, 0.4)`,
+            }}
+          >
+            Add Todo
+          </Button>
+        </div>
+        <div className="daily-todo__output">
+          Todo List
+          {todoList.map((item, id) => {
+            return (
+              <>
+                {/*Поле для изменения задач*/}
+                {item.trim() === edit ? (
+                  <div className="rename-todo">
+                    <input
+                      type="text"
+                      value={value}
+                      onChange={(e) => setValue(e.target.value)}
+                      autofocus
+                    />{" "}
+                    <button onClick={() => saveTodo(id)}>Ok</button>
                   </div>
-                </li>
-              ) : (
-                <>
-                  <li key={item + id} className="daily-todo__output-item">
+                ) : (
+                  <div></div>
+                )}
+                {/*Рендер задач по статусу выполнения*/}
+                {item[0] === " " ? (
+                  <li
+                    key={item + id}
+                    className="daily-todo__output-item daily-todo__output-itemDone"
+                  >
                     {item}
                     <div className="icons">
                       <ModeIcon
@@ -221,16 +198,46 @@ function DailyTodo(props) {
                         className="check-button"
                         onClick={doneToDo}
                         style={{ padding: "3px", cursor: "pointer" }}
+                        value="1"
                       />
                     </div>
                   </li>
-                </>
-              )}
-            </>
-          );
-        })}
+                ) : (
+                  <>
+                    <li key={item + id} className="daily-todo__output-item">
+                      {item}
+                      <div className="icons">
+                        <ModeIcon
+                          className="rename-button"
+                          onClick={renameToDo}
+                          style={{
+                            padding: "3px",
+                            cursor: "pointer",
+                          }}
+                        />
+                        <ClearIcon
+                          className="delete-button"
+                          onClick={deleteToDo}
+                          style={{
+                            padding: "3px",
+                            cursor: "pointer",
+                          }}
+                        />
+                        <CheckIcon
+                          className="check-button"
+                          onClick={doneToDo}
+                          style={{ padding: "3px", cursor: "pointer" }}
+                        />
+                      </div>
+                    </li>
+                  </>
+                )}
+              </>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
