@@ -9,8 +9,6 @@ function Monday(props) {
     return percentDone;
   });
 
-  console.log("percentDone from Monday " + percentDone);
-
   return (
     <div className="body">
       Monday

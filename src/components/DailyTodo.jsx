@@ -102,8 +102,6 @@ function DailyTodo(props) {
         console.log(`Процент выполненных задач  ${percentDone}`);
       }
     }
-    // console.log("Completed " + completed);
-    // console.log("Non Completed " + nonCompleted);
   };
 
   // Переименовать запись
