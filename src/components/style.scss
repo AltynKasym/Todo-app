@@ -13,9 +13,12 @@
     margin: 10px;
     color: aliceblue;
     border: 2px solid aliceblue;
+    transition: all 0.3s;
 
     &:hover {
-      border: 2px solid rgb(209, 57, 1);
+      // left: 10%;
+      border: 2px solid rgb(77, 76, 76);
+      transition: all 0.3s;
     }
   }
 
@@ -90,19 +93,29 @@
     }
     .rename-todo {
       position: absolute;
-      margin-top: -2px;
+      margin-top: -1px;
       margin-left: 8px;
-
       input {
-        height: 27px;
+        height: 28px;
         width: 29rem;
         font-family: "Montserrat", sans-serif;
         font-size: 1.2rem;
         border: none;
+        color: rgb(241, 240, 240);
+        background-color: #f05f5f;
+        padding-left: 10px;
 
         &:focus {
           outline: none;
         }
+      }
+
+      button {
+        margin-left: -6px;
+        height: 30px;
+
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.2rem;
       }
     }
 

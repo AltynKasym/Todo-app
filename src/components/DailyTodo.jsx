@@ -30,7 +30,9 @@ function DailyTodo(props) {
       if (localStorage.getItem(props.todoDay) === null) {
         todoList = [];
       } else {
-        todoList.push(todo.trim());
+        todoList.indexOf(todo.trim()) >= 0
+          ? alert("Такая запись существует")
+          : todoList.push(todo.trim());
       }
       localStorage.setItem(props.todoDay, JSON.stringify(todoList));
       setTodoLocal((todoLocal) => [...todoLocal, todo]);
@@ -51,6 +53,7 @@ function DailyTodo(props) {
   };
 
   // Задача выполнена
+
   todoList = JSON.parse(localStorage.getItem(props.todoDay));
   let completed = [];
   let nonCompleted = [];
@@ -59,11 +62,11 @@ function DailyTodo(props) {
     todoList.forEach((item, id) => {
       if (e.target.parentNode.parentNode.innerText.trim() === item.trim()) {
         if (item[0] === " ") {
+          // Если задача содержит начальный пробел то при клике удаляется
           let done = item.trim();
-
           setTodoLocal(todoList.splice(id, 1, done));
         } else {
-          let done = " " + e.target.parentNode.parentNode.innerText;
+          let done = " " + e.target.parentNode.parentNode.innerText; // При нажатии на задачи спереди добавляется пробел
           completed.push(item);
           setTodoLocal(todoList.splice(id, 1, done));
         }
@@ -72,6 +75,8 @@ function DailyTodo(props) {
     localStorage.setItem(props.todoDay, JSON.stringify(todoList));
   };
 
+  // Посчитать выполненные задачи
+
   const viewTodo = () => {
     todoList = JSON.parse(localStorage.getItem(props.todoDay));
     if (localStorage.getItem(props.todoDay) === null) {
@@ -79,9 +84,9 @@ function DailyTodo(props) {
     } else {
       todoList.forEach((item) => {
         if (item[0] === " ") {
-          completed.push(item.trim());
+          completed.push(item.trim()); // Задачи с пробелом - выполненные
         } else {
-          nonCompleted.push(item.trim());
+          nonCompleted.push(item.trim()); // Задачи без пробела - невыполненные
         }
       });
       if (todoList.length !== 0) {
@@ -145,18 +150,21 @@ function DailyTodo(props) {
         {todoList.map((item, id) => {
           return (
             <>
+              {/*Поле для изменения задач*/}
               {item.trim() === edit ? (
                 <div className="rename-todo">
                   <input
                     type="text"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
+                    autofocus
                   />{" "}
                   <button onClick={() => saveTodo(id)}>Ok</button>
                 </div>
               ) : (
                 <div></div>
               )}
+              {/*Рендер задач по статусу выполнения*/}
               {item[0] === " " ? (
                 <li
                   key={item + id}
@@ -184,6 +192,7 @@ function DailyTodo(props) {
                       className="check-button"
                       onClick={doneToDo}
                       style={{ padding: "3px", cursor: "pointer" }}
+                      value="1"
                     />
                   </div>
                 </li>

@@ -38,7 +38,7 @@ function App() {
         />
         <Routes>
           <Route
-            path="/Monday"
+            path="/Todo-app/Monday"
             element={
               <Monday
                 givePercent={(percentDone1) => setPercentDone1(percentDone1)}
@@ -46,7 +46,7 @@ function App() {
             }
           />
           <Route
-            path="/Tuesday"
+            path="/Todo-app/Tuesday"
             element={
               <Tuesday
                 givePercent2={(percentDone2) => setPercentDone2(percentDone2)}
@@ -54,7 +54,7 @@ function App() {
             }
           />
           <Route
-            path="/Wednesday"
+            path="/Todo-app/Wednesday"
             element={
               <Wednesday
                 givePercent3={(percentDone3) => setPercentDone3(percentDone3)}
@@ -62,7 +62,7 @@ function App() {
             }
           />
           <Route
-            path="/Thursday"
+            path="/Todo-app/Thursday"
             element={
               <Thursday
                 givePercent4={(percentDone4) => setPercentDone4(percentDone4)}
@@ -70,7 +70,7 @@ function App() {
             }
           />
           <Route
-            path="/Friday"
+            path="/Todo-app/Friday"
             element={
               <Friday
                 givePercent5={(percentDone5) => setPercentDone5(percentDone5)}
@@ -78,7 +78,7 @@ function App() {
             }
           />
           <Route
-            path="/Saturday"
+            path="/Todo-app/Saturday"
             element={
               <Saturday
                 givePercent6={(percentDone6) => setPercentDone6(percentDone6)}
@@ -86,7 +86,7 @@ function App() {
             }
           />
           <Route
-            path="/Sunday"
+            path="/Todo-app/Sunday"
             element={
               <Sunday
                 givePercent7={(percentDone7) => setPercentDone7(percentDone7)}

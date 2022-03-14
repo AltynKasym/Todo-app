@@ -13,71 +13,71 @@ function header({
 }) {
   return (
     <div className="header">
-      <Link to="/Monday">
+      <Link to="/Todo-app/Monday">
         <Button
           variant="outlined"
           style={{
-            background: `linear-gradient(to right, darkgreen ${percent1}%, transparent 0%)`,
+            background: `linear-gradient(to right, #05642d ${percent1}%, transparent 0%)`,
           }}
         >
           Monday
         </Button>
       </Link>
-      <Link to="/Tuesday">
+      <Link to="/Todo-app/Tuesday">
         <Button
           variant="outlined"
           style={{
-            background: `linear-gradient(to right, darkgreen ${percent2}%, transparent 0%)`,
+            background: `linear-gradient(to right, #05642d ${percent2}%, transparent 0%)`,
           }}
         >
           Tuesday
         </Button>
       </Link>
-      <Link to="/Wednesday">
+      <Link to="/Todo-app/Wednesday">
         <Button
           variant="outlined"
           style={{
-            background: `linear-gradient(to right, darkgreen ${percent3}%, transparent 0%)`,
+            background: `linear-gradient(to right, #05642d ${percent3}%, transparent 0%)`,
           }}
         >
           Wednesday
         </Button>
       </Link>
-      <Link to="/Thursday">
+      <Link to="/Todo-app/Thursday">
         <Button
           variant="outlined"
           style={{
-            background: `linear-gradient(to right, darkgreen ${percent4}%, transparent 0%)`,
+            background: `linear-gradient(to right, #05642d ${percent4}%, transparent 0%)`,
           }}
         >
           Thursday
         </Button>
       </Link>
-      <Link to="/Friday">
+      <Link to="/Todo-app/Friday">
         <Button
           variant="outlined"
           style={{
-            background: `linear-gradient(to right, darkgreen ${percent5}%, transparent 0%)`,
+            background: `linear-gradient(to right, #05642d ${percent5}%, transparent 0%)`,
           }}
         >
           Friday
         </Button>
       </Link>
-      <Link to="/Saturday">
+      <Link to="/Todo-app/Saturday">
         <Button
           variant="outlined"
           style={{
-            background: `linear-gradient(to right, darkgreen ${percent6}%, transparent 0%)`,
+            background: `linear-gradient(to right, #05642d ${percent6}%, transparent 0%)`,
           }}
         >
           Saturday
         </Button>
       </Link>
-      <Link to="/Sunday">
+      <Link to="/Todo-app/Sunday">
         <Button
           variant="outlined"
           style={{
-            background: `linear-gradient(to right, darkgreen ${percent7}%, transparent 0%)`,
+            background: `linear-gradient(to right, #05642d ${percent7}%, transparent 0%)`,
           }}
         >
           Sunday
