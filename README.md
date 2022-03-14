@@ -1,4 +1,4 @@
-altynkasym.github.io/todo-app/
+https://altynkasym.github.io/Todo-app/
 
 # Getting Started with Create React App
 
