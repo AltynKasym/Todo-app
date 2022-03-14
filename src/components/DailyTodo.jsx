@@ -60,36 +60,32 @@ function DailyTodo(props) {
         if (item[0] === " ") {
           let done = item.trim();
           setTodoLocal(todoList.splice(id, 1, done));
-
-          console.log(done);
         } else {
           let done = " " + e.target.parentNode.parentNode.innerText;
-          // console.log(done);
-          setTodoLocal(todoList.splice(id, 1, done));
 
-          console.log(done);
+          setTodoLocal(todoList.splice(id, 1, done));
         }
       }
     });
     localStorage.setItem(props.todoDay, JSON.stringify(todoList));
-
-    todoList.forEach((item) => {
-      if (item[0] === " ") {
-        console.log(e);
-        e.target.parentNode.parentNode.style.backgroundColor = `#44014C`;
-      } else {
-        e.target.parentNode.parentNode.style.backgroundColor = `none`;
-      }
-    });
   };
 
   todoList = JSON.parse(localStorage.getItem(props.todoDay));
 
-  const viewTodo = () => {
+  const viewTodo = (e) => {
     if (localStorage.getItem(props.todoDay) === null) {
       todoList = [];
-    } else {
     }
+    // else {
+    //   todoList.forEach((item) => {
+    //     if (item[0] === " ") {
+    //       console.log(e);
+    //       e.target.parentNode.parentNode.style.backgroundColor = `#44014C`;
+    //     } else {
+    //       e.target.parentNode.parentNode.style.backgroundColor = `none`;
+    //     }
+    //   });
+    // }
   };
 
   // Переименовать запись
@@ -119,27 +115,53 @@ function DailyTodo(props) {
         {viewTodo()}
         {todoList.map((item, id) => {
           return (
-            <li
-              onClick={renameToDo}
-              key={id}
-              className="daily-todo__output-item"
-            >
-              {item}
-              <div className="icons">
-                <ClearIcon
-                  className="delete-button"
-                  onClick={deleteToDo}
-                  style={{
-                    padding: "3px",
-                    cursor: "pointer",
-                  }}
-                />
-                <CheckIcon
-                  onClick={doneToDo}
-                  style={{ padding: "3px", cursor: "pointer" }}
-                />
-              </div>
-            </li>
+            <>
+              {item[0] === " " ? (
+                <li
+                  onClick={renameToDo}
+                  key={item + id}
+                  className="daily-todo__output-item daily-todo__output-itemDone"
+                >
+                  {item}
+                  <div className="icons">
+                    <ClearIcon
+                      className="delete-button"
+                      onClick={deleteToDo}
+                      style={{
+                        padding: "3px",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <CheckIcon
+                      onClick={doneToDo}
+                      style={{ padding: "3px", cursor: "pointer" }}
+                    />
+                  </div>
+                </li>
+              ) : (
+                <li
+                  onClick={renameToDo}
+                  key={item + id}
+                  className="daily-todo__output-item"
+                >
+                  {item}
+                  <div className="icons">
+                    <ClearIcon
+                      className="delete-button"
+                      onClick={deleteToDo}
+                      style={{
+                        padding: "3px",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <CheckIcon
+                      onClick={doneToDo}
+                      style={{ padding: "3px", cursor: "pointer" }}
+                    />
+                  </div>
+                </li>
+              )}
+            </>
           );
         })}
       </div>
