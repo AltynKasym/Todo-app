@@ -3,20 +3,15 @@ import { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
+import ModeIcon from "@mui/icons-material/Mode";
 
 function DailyTodo(props) {
-  // const givePercent = (e) => {
-  //   percent(e);
-  // };
-
   const [todo, setTodo] = useState("");
   const [todoLocal, setTodoLocal] = useState(
     JSON.parse(localStorage.getItem(props.todoDay)) || []
   );
-
-  // useEffect(() => {
-  //   localStorage.setItem("todo", JSON.stringify(todoLocal));
-  // }, [todoLocal]);
+  const [edit, setEdit] = useState(null);
+  const [value, setValue] = useState("");
 
   const todoItem = todo;
   let todoList = [];
@@ -28,15 +23,15 @@ function DailyTodo(props) {
   // Добавление задач
 
   function addTodo() {
+    todoList = JSON.parse(localStorage.getItem(props.todoDay));
     if (todo.trim() === "") {
       alert("Введите данные");
     } else {
       if (localStorage.getItem(props.todoDay) === null) {
         todoList = [];
       } else {
-        todoList = JSON.parse(localStorage.getItem(props.todoDay));
+        todoList.push(todo.trim());
       }
-      todoList.push(todo.trim());
       localStorage.setItem(props.todoDay, JSON.stringify(todoList));
       setTodoLocal((todoLocal) => [...todoLocal, todo]);
       setTodo("");
@@ -46,10 +41,10 @@ function DailyTodo(props) {
   // Удаление задач
 
   const deleteToDo = (e) => {
+    todoList = JSON.parse(localStorage.getItem(props.todoDay));
     todoList.forEach((item, id) => {
       if (e.target.parentNode.parentNode.innerText.trim() === item.trim()) {
         setTodoLocal(todoList.splice(id, 1));
-        // console.log(e.target.parentNode.parentNode.innerText);
       }
     });
     localStorage.setItem(props.todoDay, JSON.stringify(todoList));
@@ -57,7 +52,6 @@ function DailyTodo(props) {
 
   // Задача выполнена
   todoList = JSON.parse(localStorage.getItem(props.todoDay));
-
   let completed = [];
   let nonCompleted = [];
   let percentDone;
@@ -78,9 +72,8 @@ function DailyTodo(props) {
     localStorage.setItem(props.todoDay, JSON.stringify(todoList));
   };
 
-  todoList = JSON.parse(localStorage.getItem(props.todoDay));
-
   const viewTodo = () => {
+    todoList = JSON.parse(localStorage.getItem(props.todoDay));
     if (localStorage.getItem(props.todoDay) === null) {
       todoList = [];
     } else {
@@ -98,8 +91,6 @@ function DailyTodo(props) {
         props.givePercent(() => {
           return percentDone;
         });
-
-        console.log(`Процент выполненных задач  ${percentDone}`);
       }
     }
   };
@@ -107,8 +98,24 @@ function DailyTodo(props) {
   // Переименовать запись
 
   const renameToDo = (e) => {
-    return <>{document.createElement("input").append(e.target.textContent)}</>;
+    todoList = JSON.parse(localStorage.getItem(props.todoDay));
+    let el = e.target.parentNode.parentNode.innerText.trim();
+    todoList.forEach((todo, id) => {
+      if (el === todo.trim()) {
+        setEdit(el);
+        setValue(el);
+      }
+    });
   };
+
+  function saveTodo(id) {
+    todoList = JSON.parse(localStorage.getItem(props.todoDay));
+    todoList.forEach((todo, index) => {
+      setTodoLocal(todoList.splice(id, 1, value));
+    });
+    localStorage.setItem(props.todoDay, JSON.stringify(todoList));
+    setEdit(null);
+  }
 
   return (
     <div className="daily-todo">
@@ -127,7 +134,7 @@ function DailyTodo(props) {
           variant="contained"
           onClick={() => addTodo()}
           style={{
-            background: `linear-gradient(to right, red ${percentDone}%, transparent 0%)`,
+            background: `rgba(14, 13, 13, 0.4)`,
           }}
         >
           Add Todo
@@ -138,39 +145,61 @@ function DailyTodo(props) {
         {todoList.map((item, id) => {
           return (
             <>
+              {item.trim() === edit ? (
+                <div className="rename-todo">
+                  <input
+                    type="text"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                  />{" "}
+                  <button onClick={() => saveTodo(id)}>Ok</button>
+                </div>
+              ) : (
+                <div></div>
+              )}
               {item[0] === " " ? (
-                <>
-                  <li
-                    onClick={renameToDo}
-                    key={item + id}
-                    className="daily-todo__output-item daily-todo__output-itemDone"
-                  >
-                    {item}
-                    <div className="icons">
-                      <ClearIcon
-                        className="delete-button"
-                        onClick={deleteToDo}
-                        style={{
-                          padding: "3px",
-                          cursor: "pointer",
-                        }}
-                      />
-                      <CheckIcon
-                        onClick={doneToDo}
-                        style={{ padding: "3px", cursor: "pointer" }}
-                      />
-                    </div>
-                  </li>
-                </>
+                <li
+                  key={item + id}
+                  className="daily-todo__output-item daily-todo__output-itemDone"
+                >
+                  {item}
+                  <div className="icons">
+                    <ModeIcon
+                      className="rename-button"
+                      onClick={renameToDo}
+                      style={{
+                        padding: "3px",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <ClearIcon
+                      className="delete-button"
+                      onClick={deleteToDo}
+                      style={{
+                        padding: "3px",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <CheckIcon
+                      className="check-button"
+                      onClick={doneToDo}
+                      style={{ padding: "3px", cursor: "pointer" }}
+                    />
+                  </div>
+                </li>
               ) : (
                 <>
-                  <li
-                    onClick={renameToDo}
-                    key={item + id}
-                    className="daily-todo__output-item"
-                  >
+                  <li key={item + id} className="daily-todo__output-item">
                     {item}
                     <div className="icons">
+                      <ModeIcon
+                        className="rename-button"
+                        onClick={renameToDo}
+                        style={{
+                          padding: "3px",
+                          cursor: "pointer",
+                        }}
+                      />
                       <ClearIcon
                         className="delete-button"
                         onClick={deleteToDo}
@@ -180,6 +209,7 @@ function DailyTodo(props) {
                         }}
                       />
                       <CheckIcon
+                        className="check-button"
                         onClick={doneToDo}
                         style={{ padding: "3px", cursor: "pointer" }}
                       />

@@ -25,19 +25,33 @@
 }
 
 .body {
+  color: #fff;
   font-size: 1.5rem;
   padding: 100px;
 }
 
 .daily-todo {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // width: 100%;
+
   &__input {
     display: flex;
     align-items: center;
     margin-bottom: 50px;
+    color: #fff;
+
     .input-todo {
-      width: 300px;
+      width: 20rem;
+      color: #fff;
+
+      input {
+        color: #fff;
+      }
     }
+
     .todo-list {
       // display: flex;
       // justify-content: center;
@@ -46,9 +60,11 @@
   }
 
   &__output {
+    width: 40rem;
     &-item {
-      max-width: 90%;
-      background-color: rgba(206, 204, 204, 0.4);
+      max-width: 40rem;
+      background-color: rgba(206, 204, 204, 0.8);
+      color: rgb(32, 32, 32);
       margin: 8px;
       padding: 0 10px;
       font-size: 1.2rem;
@@ -64,10 +80,34 @@
         .delete-button:hover {
           color: red;
         }
+        .rename-button:hover {
+          color: red;
+        }
+        .check-button:hover {
+          color: red;
+        }
+      }
+    }
+    .rename-todo {
+      position: absolute;
+      margin-top: -2px;
+      margin-left: 8px;
+
+      input {
+        height: 27px;
+        width: 29rem;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.2rem;
+        border: none;
+
+        &:focus {
+          outline: none;
+        }
       }
     }
 
     &-itemDone {
+      // max-width: 80%;
       background-color: rgba(112, 247, 135, 0.6);
       text-decoration: line-through;
     }
